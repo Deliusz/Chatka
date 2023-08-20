@@ -1,0 +1,41 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			// "type": "npm",
+			// "script": "test",
+			"group": "test",
+			"label": "All Tests",
+			"detail": "npm run test:integration && npm run test:unit",
+			"dependsOn": [
+				"test:integration",
+				"test:unit"
+			],
+			"problemMatcher": []
+		},
+		{
+			"type": "npm",
+			"script": "test:integration",
+			"group": "test",
+			"problemMatcher": [],
+			"label": "test:integration",
+			"presentation": {
+				"group": "testGroup",
+				"revealProblems": "onProblem",
+				"showReuseMessage": false
+			}
+		},
+		{
+			"type": "npm",
+			"script": "test:unit",
+			"group": "test",
+			"problemMatcher": [],
+			"label": "test:unit",
+			"presentation": {
+				"group": "testGroup",
+				"revealProblems": "onProblem",
+				"showReuseMessage": false
+			}
+		}
+	]
+}
