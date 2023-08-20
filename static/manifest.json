@@ -1,0 +1,66 @@
+{
+	"background_color": "#315868",
+	"theme_color": "#315868",
+	"display": "fullscreen",
+	"scope": "/",
+	"start_url": "/",
+	"id": "Chatka",
+	"name": "Chatka",
+	"short_name": "Chatka",
+	"description": "Strona Domowa",
+	"icons": [
+		{
+			"src": "icon/icon_x48.png",
+			"sizes": "48x48",
+			"purpose": "maskable",
+			"type": "image/png"
+		},
+		{
+			"src": "icon/icon_x72.png",
+			"sizes": "72x72",
+			"purpose": "maskable",
+			"type": "image/png"
+		},
+		{
+			"src": "icon/icon_x96.png",
+			"sizes": "96x96",
+			"purpose": "maskable",
+			"type": "image/png"
+		},
+		{
+			"src": "icon/icon_x128.png",
+			"sizes": "128x128",
+			"purpose": "maskable",
+			"type": "image/png"
+		},
+		{
+			"src": "icon/icon_x192.png",
+			"sizes": "192x192",
+			"purpose": "any maskable",
+			"type": "image/png"
+		},
+		{
+			"src": "icon/icon_x384.png",
+			"sizes": "384x384",
+			"purpose": "maskable",
+			"type": "image/png"
+		},
+		{
+			"src": "icon/icon_x512.png",
+			"sizes": "512x512",
+			"purpose": "any maskable",
+			"type": "image/png"
+		},
+		{
+			"src": "icon/icon.png",
+			"sizes": "1024x1024",
+			"purpose": "any maskable",
+			"type": "image/png"
+		},
+		{
+			"src": "icon/favicon.svg",
+			"purpose": "any monochrome",
+			"type": "image/svg"
+		}
+	]
+}
