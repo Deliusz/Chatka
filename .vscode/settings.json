@@ -1,0 +1,16 @@
+{
+    "files.exclude": {
+        "**/.eslint*": true,
+        "**/.gitignore": true,
+        "**/.prettier*": true,
+        "**/package*": true,
+        "**/.npmrc": true,
+        "**/playwright*": true,
+        "**/svelte.config.js": true,
+        "**/tsconfig.json": true,
+        "**/vite.config.ts": true,
+        "**/.svelte-kit": true,
+        "**/.vscode": true,
+        "**/node_modules": true,
+    }
+}
