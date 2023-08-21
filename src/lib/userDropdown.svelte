@@ -1,25 +1,110 @@
 <!-- component -->
+<script lang="ts">
+	export let username: string;
+	export let userAvatar: string = '/defaultUserAvatar.png';
+	interface DropdownEntry {
+		link: string;
+		icon: string;
+		text: string;
+	}
+	export let dropdownEntries: DropdownEntry[] = [];
+
+	import { onMount } from 'svelte';
+	onMount(() => {
+		window.onclick = function (event: MouseEvent) {
+			var userDropdown = document.querySelector('#userDropdown') as HTMLElement;
+			if (event) {
+				if (
+					event.target instanceof HTMLElement &&
+					event.target?.contains(userDropdown) == true &&
+					event.target !== userDropdown
+				) {
+					hideUserProfileDropdown();
+				}
+			}
+		};
+	});
+	const toggleUserProfileDropdown = () => {
+		let userDropdown = document.querySelector('#userDropdown') as HTMLElement;
+		if (userDropdown) {
+			userDropdown.style.opacity != '0' && userDropdown.style.visibility != ''
+				? hideUserProfileDropdown()
+				: showUserProfileDropdown();
+		}
+	};
+	const hideUserProfileDropdown = () => {
+		var userDropdown = document.querySelector('#userDropdown') as HTMLElement;
+		userDropdown.style.opacity = '0';
+		userDropdown.style.visibility = 'hidden';
+	};
+	const showUserProfileDropdown = () => {
+		var userDropdown = document.querySelector('#userDropdown') as HTMLElement;
+		userDropdown.style.opacity = '100';
+		userDropdown.style.visibility = 'visible';
+	};
+</script>
+
 <div class="w-60">
-	<div class="group w-max ml-auto">
-		<button class=" outline-none focus:outline-none w-auto h-10 ml-auto flex">
-			<span class="w-auto h-10 text-1xl mt-2 mr-2 block"> Username </span>
-			<span class="h-10 w-10 inline-block rounded-full overflow-hidden">
-				<i class="fa-solid fa-user text-4xl" />
+	<div class="w-max ml-auto">
+		<button
+			class=" outline-none focus:outline-none w-auto h-10 ml-auto flex"
+			id="userDropdownButton"
+			on:click={() => {
+				toggleUserProfileDropdown();
+			}}
+		>
+			<span class="z-10 group h-10 w-10 inline-block">
+				<img class="  rounded-full overflow-hidden transition" src={userAvatar} alt="" />
+				<div
+					class="relative duration-150 -z-10 group-hover:scale-100 transition bg-[--accent-color] scale-0 mt-[-2.75rem] ml-[-0.25rem] w-12 h-12 rounded-full overflow-hidden"
+				/>
 			</span>
 		</button>
 		<div
-			class="w-full absolute left-0 sm:left-auto sm:right-0 invisible group-hover:visible sm:w-40 transform opacity-0 group-hover:opacity-100
-            transition duration-300 ease-in-out origin-top"
+			id="userDropdown"
+			class=" absolute left-auto right-0 invisible group-hover:visible w-64 transform opacity-0 group-hover:opacity-100
+            transition duration-300 ease-in-out origin-top bg-neutral-700 rounded-b-lg overflow-hidden"
 		>
-			<ul class=" bg-neutral-700 rounded-b-lg pt-2 text-center">
-				<li class="rounded-sm px-3 py-2 hover:bg-neutral-600">Programming</li>
-				<li class="rounded-sm px-3 py-2 hover:bg-neutral-600">DevOps</li>
-				<li class="px-3 py-2 hover:bg-neutral-600">Go</li>
-				<li class="px-3 py-2 hover:bg-neutral-600">Rust</li>
-				<li class="rounded-b-lg px-3 py-2 hover:bg-neutral-600">Testing</li>
+			<div class="flex justify-around w-auto mx-auto">
+				<img class="w-14 rounded-full" src={userAvatar} alt="" />
+				<div class="w-[60%]">
+					<span class="text-sm">Signed in as</span>
+					<br />
+					<span class=" font-bold text-xl">{username}</span>
+				</div>
+			</div>
+			<hr class="mt-2 border-[--accent-color] border-[1px] rounded-full w-11/12 mx-auto" />
+			<ul class="pt-1">
+				{#if dropdownEntries.length > 0}
+					{#each Object.entries(dropdownEntries) as [str, dropdownEntry]}
+						<a href={dropdownEntry.link}
+							><li
+								class="flex items-center rounded-sm px-3 py-2 hover:bg-neutral-600 hover:border-[--accent-color] transition border-l-4 border-transparent"
+							>
+								{dropdownEntry.icon}
+								<span> {dropdownEntry.text} </span>
+							</li></a
+						>
+					{/each}
+				{/if}
+				<a href="/settings"
+					><li
+						class="flex items-center rounded-sm px-3 py-2 hover:bg-neutral-600 hover:border-[--accent-color] transition border-l-4 border-transparent"
+					>
+						<i class="fa-solid fa-gear text-xl mr-3" />
+						<span> Settings </span>
+					</li></a
+				>
+
+				<a href="/logout"
+					><li
+						class="hover:text-rose-400 flex items-center rounded-sm px-3 py-2 hover:bg-neutral-600 hover:border-[--accent-color] transition border-l-4 border-transparent"
+					>
+						<i class="fa-solid fa-arrow-right-from-bracket text-xl mr-3" />
+						<span>Sign Out</span>
+					</li></a
+				>
 			</ul>
 		</div>
 	</div>
 </div>
-<!-- rounded-b collapse group-hover:visible transform opacity-0 left-0 group-hover:opacity-100
-    transition duration-200 ease-in-out -->
