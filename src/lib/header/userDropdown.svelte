@@ -1,7 +1,9 @@
-<!-- component -->
 <script lang="ts">
 	export let username: string;
-	export let userAvatar: string = '/defaultUserAvatar.png';
+	export let userAvatar: string | undefined;
+
+	if (userAvatar == '') userAvatar = '/defaultUserAvatar.png';
+
 	interface DropdownEntry {
 		link: string;
 		icon: string;
@@ -52,6 +54,7 @@
 			on:click={() => {
 				toggleUserProfileDropdown();
 			}}
+			aria-label="User Dropdown"
 		>
 			<span class="z-10 group h-10 w-10 inline-block">
 				<img class="  rounded-full overflow-hidden transition" src={userAvatar} alt="" />
@@ -95,15 +98,16 @@
 						<span> Settings </span>
 					</li></a
 				>
-
-				<a href="/logout"
-					><li
-						class="hover:text-rose-400 flex items-center rounded-sm px-3 py-2 hover:bg-neutral-600 hover:border-[--accent-color] transition border-l-4 border-transparent"
-					>
-						<i class="fa-solid fa-arrow-right-from-bracket text-xl mr-3" />
-						<span>Sign Out</span>
-					</li></a
-				>
+				<form action="/logout?/logout" method="post">
+					<button class="inline w-[100%]">
+						<li
+							class="hover:text-rose-400 flex items-center rounded-sm px-3 py-2 hover:bg-neutral-600 hover:border-[--accent-color] transition border-l-4 border-transparent"
+						>
+							<i class="fa-solid fa-arrow-right-from-bracket text-xl mr-3" />
+							<span>Sign Out</span>
+						</li>
+					</button>
+				</form>
 			</ul>
 		</div>
 	</div>
