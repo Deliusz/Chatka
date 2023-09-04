@@ -56,7 +56,7 @@
 			}}
 			aria-label="User Dropdown"
 		>
-			<span class="z-10 group h-10 w-10 inline-block">
+			<span class="z-30 group h-10 w-10 inline-block">
 				<img class="  rounded-full overflow-hidden transition" src={userAvatar} alt="" />
 				<div
 					class="relative duration-150 -z-10 group-hover:scale-100 transition bg-[--accent-color] scale-0 mt-[-2.75rem] ml-[-0.25rem] w-12 h-12 rounded-full overflow-hidden"
@@ -65,7 +65,7 @@
 		</button>
 		<div
 			id="userDropdown"
-			class=" absolute left-auto right-0 invisible group-hover:visible w-64 transform opacity-0 group-hover:opacity-100
+			class=" z-20 absolute left-auto right-0 invisible group-hover:visible w-64 transform opacity-0 group-hover:opacity-100
             transition duration-300 ease-in-out origin-top bg-neutral-700 rounded-b-lg overflow-hidden"
 		>
 			<div class="flex justify-around w-auto mx-auto">
