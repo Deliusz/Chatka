@@ -1,41 +1,49 @@
 <script lang="ts">
-	import { onMount } from 'svelte';
 	import TemperatureBlock from './temperatureBlock.svelte';
+	import { onMount } from 'svelte';
+	import { fade } from 'svelte/transition';
+	import { temperature1, temperature2 } from '../../../stores';
 
-	let tem1 = '0';
-	let tem2 = '0';
+	let dataTime = 0;
+	let dataTimeDifference = 0;
 	let dataComplete = false;
 
 	onMount(async () => {
 		setInterval(async () => {
 			const temps = await fetch('https://chatka.myddns.me/api/temperature.php?option=get');
 			const json = await temps.json();
-			tem1 = parseInt(json.temp1).toString();
-			tem2 = parseInt(json.temp2).toString();
+			let currnetDate = new Date();
+			let currnetTime = currnetDate.getTime();
+			let dataDate = new Date(json.time);
+			dataTime = dataDate.getTime();
+			temperature1.set(await parseInt(json.temp1).toString());
+			temperature2.set(await parseInt(json.temp2).toString());
 			dataComplete = true;
-		}, 500);
+			dataTimeDifference = (currnetTime - dataTime) / 1000 / 60;
+		}, 1000);
 	});
 </script>
 
-{#if dataComplete}
-	<div class="bg-neutral-800 p-4 w-[95%] sm:w-96 rounded-2xl sm:mx-4 my-4 mx-auto">
+{#if ($temperature1 != '0' || $temperature2 != '0') && dataTimeDifference <= 5 && dataComplete}
+	<div
+		class="bg-neutral-800 p-4 w-100 sm:w-96 rounded-2xl"
+		in:fade={{ duration: 500 }}
+		out:fade={{ duration: 500 }}
+	>
 		<span class="text-lg font-semibold mb-4 block sm:text-left">Temperatures</span>
 		<div id="temperatureBoxContainer" class=" flex flex-wrap flex-row gap-3 justify-center">
-			{#key tem1}
-				<TemperatureBlock
-					color="bg-gradient-to-tr from-sky-500 to-blue-600"
-					name="Boiler"
-					temperature={tem1}
-				/>
-			{/key}
-			{#key tem2}
-				<TemperatureBlock
-					color="bg-gradient-to-tr from-amber-500 to-rose-600"
-					name="Furnace"
-					temperature={tem2}
-					breakPoints={[50, 55, 60, 65]}
-				/>
-			{/key}
+			<TemperatureBlock
+				color="bg-gradient-to-tr from-sky-500 to-blue-600"
+				name="Boiler"
+				temperature={$temperature1}
+			/>
+
+			<TemperatureBlock
+				color="bg-gradient-to-tr from-amber-500 to-rose-600"
+				name="Furnace"
+				temperature={$temperature2}
+				breakPoints={[50, 55, 60, 65]}
+			/>
 		</div>
 	</div>
 {/if}
