@@ -15,7 +15,6 @@ export const actions = {
 				.collection('users')
 				.authWithPassword(data.email.toString(), data.password.toString());
 		} catch (err) {
-			console.log('Error:', err);
 			return {
 				error: true,
 				email: data.email
