@@ -8,7 +8,6 @@
 <form class="flex flex-col items-center" action="?/login" method="POST">
 	<div class="min-h-full flex flex-col justify-center sm:py-12">
 		<div class="p-10 xs:p-0 mx-auto md:w-full md:max-w-md">
-			<!-- <h1 class="font-bold text-center text-2xl mb-5">Your Logo</h1> -->
 			<div class="bg-neutral-700 shadow w-full rounded-lg divide-y divide-gray-200">
 				<div class="px-5 pt-7 pb-1">
 					<label for="email" class="font-semibold text-sm text-neutral-100 pb-1 block">E-mail</label
