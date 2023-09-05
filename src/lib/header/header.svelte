@@ -9,7 +9,7 @@
 
 <header class="h-14 w-screen flex bg-neutral-700 px-6 py-2 rounded-b-lg">
 	<a href="/" class="w-10 flex">
-		<img class="h-10" src="icon/favicon.svg" alt="Logo" />
+		<img class="h-10" src="/icon/favicon.svg" alt="Logo" />
 	</a>
 	{#if headerData.username}
 		<div class="ml-auto">
