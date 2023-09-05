@@ -27,8 +27,8 @@
 {#if ($temperature1 != '0' || $temperature2 != '0') && dataTimeDifference <= 5 && dataComplete}
 	<div
 		class="bg-neutral-800 p-4 w-100 sm:w-96 rounded-2xl"
-		in:fade={{ duration: 500 }}
-		out:fade={{ duration: 500 }}
+		in:fade={{ duration: 300 }}
+		out:fade={{ duration: 300 }}
 	>
 		<span class="text-lg font-semibold mb-4 block sm:text-left">Temperatures</span>
 		<div id="temperatureBoxContainer" class=" flex flex-wrap flex-row gap-3 justify-center">

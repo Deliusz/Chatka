@@ -43,10 +43,12 @@
 {#if dataComplete}
 	<div
 		class="bg-neutral-800 p-4 w-100 sm:w-96 rounded-2xl"
-		in:fade={{ duration: 500 }}
-		out:fade={{ duration: 500 }}
+		in:fade={{ duration: 300 }}
+		out:fade={{ duration: 300 }}
 	>
-		<span class="text-lg font-semibold mb-4 block sm:text-left">Comebacks</span>
+		<a href="/settings/comebacks">
+			<span class="text-lg font-semibold mb-4 block sm:text-left">Comebacks</span>
+		</a>
 		<div class=" flex flex-wrap flex-col gap-3 justify-center">
 			{#each comebacks as comeback}
 				{#key comeback}

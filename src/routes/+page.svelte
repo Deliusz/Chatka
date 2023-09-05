@@ -9,12 +9,10 @@
 </head>
 
 <div
-	out:fly={{ x: 400 }}
-	in:fly={{ x: -400 }}
+	out:fly={{ x: -400 }}
+	in:fly={{ y: 400, delay: 400 }}
 	class="justify-center sm:justify-normal sm:w-100 flex gap-2 flex-col sm:flex-row p-2"
 >
 	<TemperatureModule />
 	<ComebacksModule />
 </div>
-<a href="/test">Test</a>
-<a href="/">Home</a>
