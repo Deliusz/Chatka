@@ -1,27 +1,22 @@
 <script lang="ts">
-	interface timeData {
-		Mon: string;
-		Tue: string;
-		Wed: string;
-		Thu: string;
-		Fri: string;
-		Sat: string;
-		Sun: string;
-	}
-	export let username: string;
-	export let time: timeData;
-	export let avatar: string;
-	avatar = avatar == '' ? '/defaultUserAvatar.png' : avatar;
-	const currnetDate = new Date();
-	const currentDay = currnetDate.toDateString().split(' ')[0];
+	import { getGradientVariant, getCurrentDayComebackTime } from '$lib/helpers';
 
-	let timeCurrentDay = time[currentDay as keyof timeData];
+	export let username: string;
+	export let time: object;
+	export let avatar: string;
+	export let color: string;
+	export let id: string;
+	avatar = avatar == '' ? '/defaultUserAvatar.png' : avatar;
 </script>
 
-{#if time && timeCurrentDay != '00:00'}
-	<div class="bg-gradient-to-tr from-teal-500 to-emerald-700 flex flex-row w-100 p-3 rounded-2xl">
-		<img class="h-10 mr-2 rounded-full" src={avatar} alt="" />
-		<span class="text-2xl font-semibold self-center">{username}</span>
-		<span class="text-3xl font-bold self-center ml-auto mr-0">{timeCurrentDay}</span>
-	</div>
+{#if time && getCurrentDayComebackTime(time) != '00:00'}
+	<a href="/view/comeback/{id}">
+		<div class="{getGradientVariant(color)} flex flex-row w-100 p-3 rounded-2xl">
+			<img class="h-10 mr-2 rounded-full" src={avatar} alt="" />
+			<span class="text-2xl font-semibold self-center">{username}</span>
+			<span class="text-3xl font-bold self-center ml-auto mr-0"
+				>{getCurrentDayComebackTime(time)}</span
+			>
+		</div>
+	</a>
 {/if}
