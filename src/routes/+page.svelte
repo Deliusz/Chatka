@@ -1,7 +1,7 @@
 <script>
 	import TemperatureModule from '$lib/modules/temperature/temperatures.svelte';
 	import ComebacksModule from '$lib/modules/comebacks/comebacks.svelte';
-	import { fly, fade } from 'svelte/transition';
+	import { fly } from 'svelte/transition';
 </script>
 
 <head>

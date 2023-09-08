@@ -1,14 +1,10 @@
 <script lang="ts">
 	import '../app.css';
-	import Header from '$lib/header/header.svelte';
-	export let data;
+	import Header from '$lib/modules/header/header.svelte';
+	import type { UserData } from '$lib/functions/helpers';
+	export let data: UserData;
 </script>
 
-<Header
-	headerData={{
-		username: data.user?.username,
-		userAvatar: data.user?.avatar
-	}}
-/>
+<Header {data} />
 
 <slot />
