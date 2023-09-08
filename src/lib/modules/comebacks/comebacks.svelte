@@ -2,8 +2,8 @@
 	import { fade } from 'svelte/transition';
 	import ComebacksBlock from './comebacksBlock.svelte';
 	import { onMount } from 'svelte';
-	import { sortComebacksByTime } from '$lib/helpers';
-	import type { ComebacksData } from '$lib/helpers';
+	import { sortComebacksByTime } from '$lib/functions/helpers';
+	import type { ComebacksData } from '$lib/functions/helpers';
 
 	let dataComplete = false;
 	let comebacks: Array<ComebacksData>;

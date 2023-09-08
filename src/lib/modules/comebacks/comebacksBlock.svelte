@@ -1,5 +1,6 @@
 <script lang="ts">
-	import { getGradientVariant, getCurrentDayComebackTime } from '$lib/helpers';
+	import { getBackgroundGradientVariant } from '$lib/functions/colors';
+	import { getCurrentDayComebackTime } from '$lib/functions/helpers';
 
 	export let username: string;
 	export let time: object;
@@ -11,7 +12,7 @@
 
 {#if time && getCurrentDayComebackTime(time) != '00:00'}
 	<a href="/view/comeback/{id}">
-		<div class="{getGradientVariant(color)} flex flex-row w-100 p-3 rounded-2xl">
+		<div class="{getBackgroundGradientVariant(color)} flex flex-row w-100 p-3 rounded-2xl">
 			<img class="h-10 mr-2 rounded-full" src={avatar} alt="" />
 			<span class="text-2xl font-semibold self-center">{username}</span>
 			<span class="text-3xl font-bold self-center ml-auto mr-0"
