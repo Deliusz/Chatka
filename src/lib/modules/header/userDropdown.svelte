@@ -1,8 +1,9 @@
 <script lang="ts">
-	export let username: string;
-	export let userAvatar: string | undefined;
+	import { getBackgroundColorVariant, getBorderColorVariant } from '$lib/functions/colors';
+	export let data;
 
-	if (userAvatar == '') userAvatar = '/defaultUserAvatar.png';
+	const user = data.user;
+	user.avatar = user.avatar ? user.avatar : '/defaultUserAvatar.png';
 
 	interface DropdownEntry {
 		link: string;
@@ -57,9 +58,11 @@
 			aria-label="User Dropdown"
 		>
 			<span class="z-30 group h-10 w-10 inline-block">
-				<img class="  rounded-full overflow-hidden transition" src={userAvatar} alt="" />
+				<img class="w-10 h-10 rounded-full overflow-hidden transition" src={user.avatar} alt="" />
 				<div
-					class="relative duration-150 -z-10 group-hover:scale-100 transition bg-[--accent-color] scale-0 mt-[-2.75rem] ml-[-0.25rem] w-12 h-12 rounded-full overflow-hidden"
+					class="relative duration-150 -z-10 group-hover:scale-100 transition {getBackgroundColorVariant(
+						user.color
+					)} scale-0 mt-[-2.75rem] ml-[-0.25rem] w-12 h-12 rounded-full overflow-hidden"
 				/>
 			</span>
 		</button>
@@ -69,14 +72,16 @@
             transition duration-300 ease-in-out origin-top bg-neutral-700 rounded-b-lg overflow-hidden"
 		>
 			<div class="flex justify-around w-auto mx-auto">
-				<img class="w-14 rounded-full" src={userAvatar} alt="" />
+				<img class="w-14 h-14 rounded-full" src={user.avatar} alt="" />
 				<div class="w-[60%]">
 					<span class="text-sm">Signed in as</span>
 					<br />
-					<span class=" font-bold text-xl">{username}</span>
+					<span class=" font-bold text-xl">{user.username}</span>
 				</div>
 			</div>
-			<hr class="mt-2 border-[--accent-color] border-[1px] rounded-full w-11/12 mx-auto" />
+			<hr
+				class="mt-2 {getBorderColorVariant(user.color)} border-[1px] rounded-full w-11/12 mx-auto"
+			/>
 			<ul class="pt-1">
 				{#if dropdownEntries.length > 0}
 					{#each Object.entries(dropdownEntries) as [str, dropdownEntry]}
