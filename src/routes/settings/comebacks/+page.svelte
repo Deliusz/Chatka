@@ -1,47 +1,25 @@
 <script lang="ts">
+	import {
+		getPeerCheckedTextColorVariant,
+		getPeerCheckedBorderColorVariant
+	} from '$lib/functions/colors';
+	import { ifTimeIsInDay, getJSONfromFetch } from '$lib/functions/helpers';
 	import { onMount } from 'svelte';
 	import { fly } from 'svelte/transition';
+	import { avaliableDays, avaliableTimes } from '$lib/functions/helpers';
+	import type { timeData } from '$lib/functions/helpers';
 
-	let avaliableTimes = ['13:50', '14:50', '15:50', '16:50', '00:00'];
-	let avaliableDays = [
-		{ long: 'Monday', short: 'Mon' },
-		{ long: 'Tuesday', short: 'Tue' },
-		{ long: 'Wednesday', short: 'Wed' },
-		{ long: 'Thuersday', short: 'Thu' },
-		{ long: 'Friday', short: 'Fri' },
-		{ long: 'Saturday', short: 'Sat' },
-		{ long: 'Sunday', short: 'Sun' }
-	];
-	interface timeData {
-		Mon: string;
-		Tue: string;
-		Wed: string;
-		Thu: string;
-		Fri: string;
-		Sat: string;
-		Sun: string;
-	}
-
-	let data: timeData;
-
-	let check = (time: string) => {
-		let timeArr = time.split('-');
-		console.log();
-		if (data[timeArr[0] as keyof timeData] == timeArr[1]) {
-			return true;
-		}
-		return false;
-	};
-
+	let times: timeData;
 	let dataComplete = false;
-	const currnetDate = new Date();
-	const currentDay = currnetDate.toDateString().split(' ')[0];
+
+	export let data;
+	let color = data.user?.color;
 
 	onMount(async () => {
-		const temps = await fetch('http://10.100.100.1:5173/api/comebacks/me');
-		const json = await temps.json();
-		data = json;
-		console.log(json);
+		let userComebacks = await getJSONfromFetch(
+			`http://10.100.100.1:5173/api/comebacks/user/${data?.user?.id}`
+		);
+		times = userComebacks.time;
 		dataComplete = true;
 	});
 
@@ -59,7 +37,7 @@
 							<ul class="flex flex-row justify-evenly py-2">
 								{#each avaliableTimes as time}
 									<li>
-										{#if check(day.short + '-' + time)}
+										{#if ifTimeIsInDay(times, day.short, time)}
 											<input
 												type="radio"
 												id="{day.long}-{time}"
@@ -83,7 +61,11 @@
 										{/if}
 										<label
 											for="{day.long}-{time}"
-											class="text-lg p-2 border border-neutral-600 rounded-lg cursor-pointer peer-checked:border-rose-400 peer-checked:font-bold peer-checked:text-rose-300 hover:text-neutral-100 hover:bg-neutral-700"
+											class="text-lg p-2 border border-neutral-600 rounded-lg cursor-pointer {getPeerCheckedBorderColorVariant(
+												color
+											)} peer-checked:font-bold {getPeerCheckedTextColorVariant(
+												color
+											)} hover:text-neutral-100 hover:bg-neutral-700"
 										>
 											{time}
 										</label>
