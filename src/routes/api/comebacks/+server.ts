@@ -8,12 +8,14 @@ export const GET = async ({ locals }) => {
 				const user = await locals.pb
 					.collection('users')
 					.getFirstListItem('id = "' + item.userId + '"');
-
-				comebacks.push({
-					username: user.username,
-					avatar: locals.pb.files.getUrl(user, user.avatar),
-					time: item.time
-				});
+				if (locals.pb.authStore.model?.group == user.group)
+					comebacks.push({
+						id: user.id,
+						username: user.username,
+						avatar: locals.pb.files.getUrl(user, user.avatar),
+						time: item.time,
+						color: user.accentColor
+					});
 			}
 		} catch (err) {
 			console.log(err);
