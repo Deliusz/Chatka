@@ -1,4 +1,4 @@
-import { redirectIfUserIsLoggedIn } from '$lib/helpers';
+import { redirectIfUserIsLoggedIn } from '$lib/functions/helpers';
 import { redirect } from '@sveltejs/kit';
 
 export const load = ({ locals }) => {
@@ -11,10 +11,12 @@ export const actions = {
 		const data = Object.fromEntries([...formData]);
 
 		try {
+			// Auth user to locals
 			await locals.pb
 				.collection('users')
 				.authWithPassword(data.email.toString(), data.password.toString());
 		} catch (err) {
+			// Return auth err
 			return {
 				error: true,
 				email: data.email
