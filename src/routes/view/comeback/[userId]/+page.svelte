@@ -8,6 +8,8 @@
 		type timeData,
 		avaliableDays
 	} from '$lib/functions/helpers';
+	import { goto } from '$app/navigation';
+	import { redirect } from '@sveltejs/kit';
 
 	interface pageData {
 		userId: string;
@@ -23,10 +25,19 @@
 	};
 
 	onMount(async () => {
-		setInterval(async () => {
-			userComebacks = await getJSONfromFetch(`/api/comebacks/user/${data.userId}`);
-			dataComplete = true;
-			userTimes = userComebacks.time as timeData;
+		let interval = setInterval(async () => {
+			try {
+				userComebacks = await getJSONfromFetch(`/api/comebacks/user/${data.userId}`);
+				if (userComebacks === undefined || Object.keys(userComebacks).length === 0) {
+					throw 'undefined';
+				} else {
+					userTimes = userComebacks.time as timeData;
+					dataComplete = true;
+				}
+			} catch (err) {
+				clearInterval(interval);
+				throw goto('/');
+			}
 		}, 1000);
 	});
 </script>
